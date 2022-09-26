@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Buzzword Bingo",
+  "name": "Play custom Buzzword Bingo cards",
   "icons": [
     {
       "src": "favicon.ico",

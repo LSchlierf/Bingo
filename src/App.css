@@ -1,38 +1,136 @@
-.App {
-  text-align: center;
+html {
+    font-family: 'Roboto';
+    background-color: #444;
+    min-height: 100%
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+    min-height: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+:root {
+    --topBarGray: #2a2a2a
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.BingoGame {
+    padding: 15px;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    height: 60%;
 }
 
-.App-link {
-  color: #61dafb;
+.bingo-field {
+    overflow: hidden;
+    aspect-ratio: 1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.NavBar {
+    padding: 20px;
+    background-color: var(--topBarGray);
+    font-size: 35px;
+    color: white;
+    justify-content: space-between;
+    display: flex;
+}
+
+.Title {
+    text-align: center;
+}
+
+.backButton {
+    background-color: var(--topBarGray);
+    border: var(--topBarGray);
+}
+
+.card-grid {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+}
+
+.card-row {
+    display: flex;
+    max-width: 400px;
+    margin: auto;
+}
+
+.bingo-field {
+    flex: 1;
+    aspect-ratio: 1;
+    border-width: 1.5px;
+    border-color: black;
+    margin: 0;
+    max-width: 80px;
+    max-height: 80px;
+    overflow: hidden;
+}
+
+.listItem {
+    color: white;
+    font-size: 20px;
+    padding: 15px;
+    border-bottom: 2px solid gray;
+    justify-content: space-between;
+    display: flex;
+}
+
+.listItemIcons {
+    display: flex;
+}
+
+.listTitle {
+    display: flex;
+    justify-content: space-between;
+    font-size: 30px;
+    color: white;
+    padding: 15px;
+    border-bottom: 2px solid white;
+}
+
+.imprint {
+    color: white;
+    font-size: 18px;
+}
+
+.gradient {
+    background: linear-gradient(180deg, rgb(9, 9, 121) 0%, rgb(1, 4, 19) 100%);
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.debugInfo {
+    color: white
+}
+
+.browserConatiner {
+    height: max-content;
+    display: table;
+}
+
+.gameList {
+    float: left;
+    min-width: calc(50% - 1px);
+    display: table-cell;
+    border-right: 1px solid gray;
+}
+
+.setList {
+    float: right;
+    min-width: calc(50% - 1px);
+    display: table-cell;
+    border-left: 1px solid gray;
+}
+
+.TitleInput {
+    padding: 10px;
+}
+
+.alertAction {
+    color: white;
+    padding-bottom: 10px;
+    padding-right: 10px;
 }

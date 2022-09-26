@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import BingoGame from './BingoGame';
+import Imprint from './Imprint';
+import EditSet from './EditSet';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<App />} />
+      <Route path='game' element={<BingoGame />} />
+      <Route path='imprint' element={<Imprint />} />
+      <Route path='contact' element={<Navigate replace to='/imprint' />} />
+      <Route path='edit' element={<EditSet />} />
+    </Routes>
+  </BrowserRouter>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
