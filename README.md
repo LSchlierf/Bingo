@@ -1,6 +1,6 @@
 # Buzzword Bingo React app
 
-This is the code for my buzzword bingo Website, which is available [here](https://bs-bingo.vercel.app)
+This is the code for my buzzword bingo website, which is available [here](https://bs-bingo.vercel.app).
 
 ## Usage
 
