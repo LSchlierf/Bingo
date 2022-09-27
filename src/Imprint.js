@@ -29,7 +29,7 @@ function Imprint() {
                     Email
                 </a>
                 {' | '}
-                <a href='https://www.github.com/LSchlierf'>
+                <a href='https://www.github.com/LSchlierf/Bingo'>
                     GitHub
                 </a>
             </div>
