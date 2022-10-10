@@ -159,7 +159,7 @@ function App() {
     let { title } = set
     return (
       <div className='listItem' key={set.id}>
-        <span style={{ display: 'flex', maxWidth: '200px' }}>
+        <span style={{ display: 'flex', maxWidth: '200px' }} onclick={() => playSet(set)}>
           {title}
         </span>
         <span onClick={() => playSet(set)} style={{ flex: 1 }} />
@@ -200,7 +200,7 @@ function App() {
         <span>
           {games.length} {games.length > 1 ? 'games' : 'game'} paused:
         </span>
-        <span onClick={() => clearGames()}>
+        <span onClick={() => clearGames()} className='deleteAll'>
           Delete all
         </span>
       </div>
@@ -215,7 +215,7 @@ function App() {
         <span>
           {sets.length} {sets.length > 1 ? 'sets' : 'set'} saved:
         </span>
-        <span onClick={() => clearSets()}>
+        <span onClick={() => clearSets()} className='deleteAll'>
           Delete all
         </span>
       </div>

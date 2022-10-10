@@ -134,3 +134,12 @@ body {
     padding-bottom: 10px;
     padding-right: 10px;
 }
+
+.deleteAll {
+    padding-left: 5px;
+    padding-right: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    border-radius: 7px;
+}

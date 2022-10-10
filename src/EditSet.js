@@ -115,7 +115,7 @@ function EditSet() {
         <span>
           {currEntries.length} {currEntries.length > 1 ? 'entries' : 'entry'}
         </span>
-        <span onClick={() => setCurrEntries([])}>
+        <span onClick={() => setCurrEntries([])} className='deleteAll'>
           Delete all
         </span>
       </div> 
