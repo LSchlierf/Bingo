@@ -197,7 +197,7 @@ function App() {
   function resumelistTitle() {
     return games.length > 0 ?
       <div className='listTitle'>
-        <span>
+        <span className='listCount'>
           {games.length} {games.length > 1 ? 'games' : 'game'} paused:
         </span>
         <span onClick={() => clearGames()} className='deleteAll'>
@@ -212,7 +212,7 @@ function App() {
   function setListTitle() {
     return sets.length > 0 ?
       <div className='listTitle'>
-        <span>
+        <span className='listCount'>
           {sets.length} {sets.length > 1 ? 'sets' : 'set'} saved:
         </span>
         <span onClick={() => clearSets()} className='deleteAll'>

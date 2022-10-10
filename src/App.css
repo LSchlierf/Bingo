@@ -88,6 +88,7 @@ body {
     color: white;
     padding: 15px;
     border-bottom: 2px solid white;
+    height: 35px;
 }
 
 .imprint {
@@ -142,4 +143,8 @@ body {
     border-width: 1px;
     border-color: white;
     border-radius: 7px;
+}
+
+.listCount {
+    padding-bottom: 0px;
 }
