@@ -12,18 +12,16 @@ class BingoStorage {
     }
 
     static addSet(set) {
-        let {title, entries} = set
-        let newSet = {id: uuidv4(), title: title, entries: entries}
-        let setsNew = [...this.getSavedSets(), newSet]
+        let newSet = {...set, id: uuidv4()}
+        let setsNew = [newSet].concat(this.getSavedSets())
         localStorage.setItem(this.LOCAL_STORAGE_KEY_SETS, JSON.stringify(setsNew))
         return newSet
     }
 
     static updateSet(set) {
-        let {id: newId, title: newTitle, entries: newEntries} = set
-        let setsNew = this.getSavedSets().map(({id: savedId, title: savedTitle, entries: savedEntreis}) => {
-            if (savedId === newId) return {id: savedId, title: newTitle, entries: newEntries}
-            return {id: savedId, title: savedTitle, entries: savedEntreis}
+        let setsNew = this.getSavedSets().map((savedSet) => {
+            if (savedSet.id === set.id) return set
+            return savedSet
         })
         localStorage.setItem(this.LOCAL_STORAGE_KEY_SETS, JSON.stringify(setsNew))
         return setsNew
@@ -53,18 +51,16 @@ class BingoStorage {
     }
 
     static addGame(game) {
-        let {title, lines, markedOff, useFreeTile} = game
-        let newGame = {id: uuidv4(), title: title, lines: lines, markedOff: markedOff, useFreeTile: useFreeTile}
-        let gamesNew = [...this.getSavedGames(), newGame]
+        let newGame = {...game, id: uuidv4()}
+        let gamesNew = [newGame].concat(this.getSavedGames())
         localStorage.setItem(this.LOCAL_STORAGE_KEY_GAMES, JSON.stringify(gamesNew))
         return newGame
     }
 
     static updateGame(game) {
-        let {id: newId, title: newTitle, lines: newLines, markedOff: newMarkedOff, useFreeTile: newUseFreeTile} = game
-        let gamesNew = this.getSavedGames().map(({id: savedId, title: savedTitle, lines: savedLines, markedOff: savedMarkedOff, useFreeTile: savedUseFreeTile}) => {
-            if (savedId === newId) return {id: savedId, title: newTitle, lines: newLines, markedOff: newMarkedOff, useFreeTile: newUseFreeTile}
-            return {id: savedId, title: savedTitle, lines: savedLines, markedOff: savedMarkedOff, useFreeTile: savedUseFreeTile}
+        let gamesNew = this.getSavedGames().map((savedGame) => {
+            if (savedGame.id === game.id) return game
+            return savedGame
         })
         localStorage.setItem(this.LOCAL_STORAGE_KEY_GAMES, JSON.stringify(gamesNew))
         return gamesNew
