@@ -4,7 +4,7 @@ This is the code for my buzzword bingo website, which is available [here](https:
 
 ## Usage
 
-On the main page, you add a set using the `+` button. Enter a title for the set, and 25 or more entries, again using the `+` button. Then return to the main page using the left arrow button.  
+On the main page, you add a set using the `+` button. Enter a title for the set, and add 8 or more entries, again using the `+` button. Then return to the main page using the left arrow button.  
 Press the newly created bingo set and you will be taken to a page where you can configure the size of your bingo card and wether to use a free tile. Press `Let's go` and you will see the newly created bingo card. Here, you can mark off fields and will be notfied when you finish your bingo card.  
 To pause a game, return to the main page using the left arrow button. Here, you will see all your saved sets and paused games.
 
