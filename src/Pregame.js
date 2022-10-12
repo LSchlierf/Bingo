@@ -92,24 +92,19 @@ function Pregame() {
     }
 
     function startGame(){
-        console.log('start game')
         let markedOff = Array.from(Array(size), () => Array.from(Array(size), () => false))
         let middle = Math.floor(size / 2)
         if(freeField){
             markedOff[middle][middle] = true
         }
-        console.table(markedOff)
         let stack = [...set.entries].sort(() => 0.5 - Math.random())
-        console.table(stack)
         let lines = markedOff.map((line, i) => line.map((_, j) => {
             return freeField && i === j && i === middle ? '' : stack.pop().title
         }))
-        console.table(lines)
         let title = set.title
         let useFreeTile = freeField
         let game = BingoStorage.addGame({title, lines, markedOff, useFreeTile})
-        console.table(game)
-        navigate('/game', {state: game})
+        navigate('/game', {state: game, replace: true})
     }
 
     return(
