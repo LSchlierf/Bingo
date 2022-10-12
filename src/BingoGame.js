@@ -19,7 +19,7 @@ export default function BingoGame() {
             <NavBar leftButton={leftButton} title={title + ' Bingo'} />
             <div className='BingoGame'>
                 <div style={{ height: 20 }}></div>
-                {<BingoCard game={BingoStorage.getGame(state)}/> /*TODO: fetch current game based off of ID*/}
+                {<BingoCard game={BingoStorage.getGame(state)}/>}
             </div>
         </div>
     )
