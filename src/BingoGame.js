@@ -8,8 +8,8 @@ import BingoCard from "./BingoCard"
 export default function BingoGame() {
     let navigate = useNavigate()
     const { state } = useLocation()
-    const { title, lines, id } = state
-    const backButtonCallBack = () => navigate(-1)
+    const { title } = state
+    const backButtonCallBack = () => navigate('/')
 
     let leftButton = (<button className='backButton' onClick={backButtonCallBack}><IconContext.Provider value={{ color: 'white', size: 30 }}><BsArrowLeft /></IconContext.Provider></button>)
 
@@ -18,7 +18,7 @@ export default function BingoGame() {
             <NavBar leftButton={leftButton} title={title + ' Bingo'} />
             <div className='BingoGame'>
                 <div style={{ height: 20 }}></div>
-                {<BingoCard lines={lines} id={id} />}
+                {<BingoCard game={state}/>}
             </div>
         </div>
     )

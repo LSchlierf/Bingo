@@ -6,6 +6,7 @@ import { IconContext } from "react-icons/lib"
 import { useLocation, useNavigate } from "react-router"
 import NavBar from "./NavBar"
 import { v4 as uuidv4 } from 'uuid'
+import BingoStorage from "./BingoStorage"
 
 const TitleTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
@@ -57,11 +58,13 @@ function EditSet() {
     <button onClick={() => {setCurrEntries([])}}>Clear entries</button>
   </div>
 
-  let leftButton = <IconContext.Provider value={{ color: 'white', size: 40 }}><BsArrowLeft onClick={() => { navigate('/', { state: { id: id, title: currTitle.trim(), entries: currEntries } }) }}></BsArrowLeft></IconContext.Provider>
+  let leftButton = <IconContext.Provider value={{ color: 'white', size: 40 }}><BsArrowLeft onClick={() => { navigate('/') }}></BsArrowLeft></IconContext.Provider>
   let rightButton = <IconContext.Provider value={{ color: 'white', size: 40 }}><BsPlus onClick={() => { setDialogVisible(true) }}></BsPlus></IconContext.Provider>
 
   let handleTitleChange = (event) => {
-    setCurrTitle(event.target.value)
+    let title = event.target.value
+    setCurrTitle(title)
+    BingoStorage.updateSet({id: id, title: title.trim(), entries: currEntries})
   }
 
   let handleEntryChange = (event) => {
@@ -77,23 +80,29 @@ function EditSet() {
     let entriesNew = [...currEntries, ...(currEntry.split('\n').map((newTitle) => {return {id: uuidv4(), title: newTitle.trim()}}).filter(({title: newTitle}) => {return !currEntries.some((containedEntry) => {return containedEntry.title === newTitle}) && newTitle.length > 0}))]
     setCurrEntries(entriesNew)
     handleDialogClose()
+    BingoStorage.updateSet({id: id, title: currTitle, entries: entriesNew})
   }
 
-  function deleteEntry(id) {
-    let entriesNew = [...currEntries].filter((savedEntry) => {return id !== savedEntry.id})
+  function deleteEntry(entry) {
+    let entriesNew = [...currEntries].filter((savedEntry) => {return entry.id !== savedEntry.id})
     setCurrEntries(entriesNew)
+    BingoStorage.updateSet({id: id, title: currTitle, entries: entriesNew})
+  }
+
+  function clearEntries() {
+    setCurrEntries([])
+    BingoStorage.updateSet({id: id, title: currTitle, entries: []})
   }
 
   function entryContainer(entry) {
-    let { id, title } = entry
     return (
-      <div className='listItem' key={id}>
+      <div className='listItem' key={entry.id}>
         <span>
-          {title}
+          {entry.title}
         </span>
         <span className='listItemIcons'>
           <IconContext.Provider value={{ color: 'white', size: 25 }}>
-            <BsTrashFill onClick={() => deleteEntry(id)}/>
+            <BsTrashFill onClick={() => deleteEntry(entry)}/>
           </IconContext.Provider>
         </span>
       </div>
@@ -115,7 +124,7 @@ function EditSet() {
         <span>
           {currEntries.length} {currEntries.length > 1 ? 'entries' : 'entry'}
         </span>
-        <span onClick={() => setCurrEntries([])} className='deleteAll'>
+        <span onClick={() => clearEntries()} className='textButton'>
           Delete all
         </span>
       </div> 

@@ -20,11 +20,6 @@ body {
     height: 60%;
 }
 
-.bingo-field {
-    overflow: hidden;
-    aspect-ratio: 1;
-}
-
 .NavBar {
     padding: 20px;
     background-color: var(--topBarGray);
@@ -57,14 +52,12 @@ body {
     margin: auto;
 }
 
-.bingo-field {
+.bingoField {
     flex: 1;
     aspect-ratio: 1;
     border-width: 1.5px;
     border-color: black;
     margin: 0;
-    max-width: 80px;
-    max-height: 80px;
     overflow: hidden;
 }
 
@@ -88,7 +81,7 @@ body {
     color: white;
     padding: 15px;
     border-bottom: 2px solid white;
-    height: 35px;
+    min-height: 38px;
 }
 
 .imprint {
@@ -136,7 +129,7 @@ body {
     padding-right: 10px;
 }
 
-.deleteAll {
+.textButton {
     padding-left: 5px;
     padding-right: 5px;
     border-style: solid;
@@ -147,4 +140,12 @@ body {
 
 .listCount {
     padding-bottom: 0px;
+}
+
+.startButton {
+    color: white;
+    font-size: 30px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
 }

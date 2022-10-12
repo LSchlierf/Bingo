@@ -1,27 +1,18 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { isIOS, isTablet } from "react-device-detect"
+import { BsStarFill } from "react-icons/bs"
+import { IconContext } from "react-icons/lib"
 import { v4 as uuidv4 } from 'uuid'
+import BingoStorage from "./BingoStorage"
 
 function BingoCard(props) {
-    const size = props.lines.length
-    const [markedOff, setMarkedOff] = useState(Array.from(Array(size), () => new Array(size)))
-
-    const LOCAL_STORAGE_KEY = 'bingoCard.' + props.id + 'MARKED_OFF'
-
-    useEffect(() => {
-        const storedMarkedOff = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-        if (storedMarkedOff) setMarkedOff(storedMarkedOff)
-        // eslint-disable-next-line
-    }, [])
-
-    useEffect(() => {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(markedOff))
-        // eslint-disable-next-line
-    }, [markedOff])
+    const size = props.game.lines.length
+    const [markedOff, setMarkedOff] = useState(props.game.markedOff)
+    const middle = Math.floor(size / 2)
 
     function BingoField(props) {
         return (
-            <button className='bingo-field' onClick={props.callback} style={{
+            <button className='bingoField' onClick={props.callback} style={{
                 borderTopLeftRadius: props.radii[0],
                 borderTopRightRadius: props.radii[1],
                 borderBottomLeftRadius: props.radii[2],
@@ -37,10 +28,19 @@ function BingoCard(props) {
         )
     }
 
+    function FreeBingoField() {
+        return <button className='bingoField' style={{backgroundColor: '#1FD633'}} >
+            <IconContext.Provider value={{ color: 'white', size: '70%' }}>
+                <BsStarFill/>
+            </IconContext.Provider>
+        </button>
+    }
+
     function handleFieldClick(index0, index1) {
         const markedOffNew = [...markedOff]
         markedOffNew[index0][index1] = !markedOffNew[index0][index1]
         setMarkedOff(markedOffNew)
+        BingoStorage.updateGame({...props.game, markedOff: markedOffNew})
     }
 
     function getRadii(index0, index1, maxVal) {
@@ -64,10 +64,13 @@ function BingoCard(props) {
     function renderLines() {
         return (
             <div className='card-grid'>
-                {props.lines.map((line, lineIndex) => {
+                {props.game.lines.map((line, lineIndex) => {
                     return (
                         <div className='card-row'>
                             {line.map((item, rowIndex) => {
+                                if (props.game.useFreeTile && lineIndex === rowIndex && lineIndex === middle) {
+                                    return <FreeBingoField />
+                                }
                                 return <BingoField
                                     text={item}
                                     markedOff={markedOff[lineIndex][rowIndex]}
