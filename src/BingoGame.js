@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router"
 import { BsArrowLeft } from 'react-icons/bs'
 import { IconContext } from 'react-icons'
 import BingoCard from "./BingoCard"
+import BingoStorage from "./BingoStorage"
 
 export default function BingoGame() {
     let navigate = useNavigate()
@@ -18,7 +19,7 @@ export default function BingoGame() {
             <NavBar leftButton={leftButton} title={title + ' Bingo'} />
             <div className='BingoGame'>
                 <div style={{ height: 20 }}></div>
-                {<BingoCard game={state}/>}
+                {<BingoCard game={BingoStorage.getGame(state)}/> /*TODO: fetch current game based off of ID*/}
             </div>
         </div>
     )

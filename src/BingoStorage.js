@@ -48,6 +48,10 @@ class BingoStorage {
         return []
     }
 
+    static getGame(game) {
+        return this.getSavedGames().find(g => g.id === game.id)
+    }
+
     static addGame(game) {
         let {title, lines, markedOff, useFreeTile} = game
         let newGame = {id: uuidv4(), title: title, lines: lines, markedOff: markedOff, useFreeTile: useFreeTile}
