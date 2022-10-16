@@ -5,6 +5,7 @@ import { isBrowser, isIOS, isTablet, } from 'react-device-detect'
 import { IconContext } from 'react-icons/lib';
 import { BsInfoCircle, BsPencilFill, BsPlayFill, BsPlus, BsTrashFill } from 'react-icons/bs';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid'
 import BingoStorage from './BingoStorage'
 
 function App() {
@@ -173,7 +174,7 @@ function App() {
     </DialogActions>
   </Dialog>
 
-  let rightButton = <IconContext.Provider value={{ color: 'white', size: 40 }}><BsPlus onClick={() => navigate('edit', { state: BingoStorage.addSet({title: '', entries: []}) })}></BsPlus></IconContext.Provider>
+  let rightButton = <IconContext.Provider value={{ color: 'white', size: 40 }}><BsPlus onClick={() => navigate('edit', {state: {id: uuidv4()}})}></BsPlus></IconContext.Provider>
   let leftButton = <IconContext.Provider value={{ color: 'white', size: 26 }}><BsInfoCircle style={{ padding: '7px' }} onClick={() => navigate('imprint')}></BsInfoCircle></IconContext.Provider>
 
   return (

@@ -12,24 +12,34 @@ class BingoStorage {
   }
 
   static addSet(set) {
-    let newSet = { ...set, id: uuidv4() }
-    let setsNew = [newSet].concat(this.getSavedSets())
+    let setsNew = [set].concat(this.getSavedSets())
     localStorage.setItem(this.LOCAL_STORAGE_KEY_SETS, JSON.stringify(setsNew))
-    return newSet
+    return set
   }
 
-  static updateSet(set) {
-    let setsNew = this.getSavedSets().map((savedSet) => {
-      if (savedSet.id === set.id) return set
-      return savedSet
-    })
-    localStorage.setItem(this.LOCAL_STORAGE_KEY_SETS, JSON.stringify(setsNew))
-    return setsNew
+  static getSet(set) {
+    return this.getSavedSets().find(s => s.id === set.id)
   }
 
   static deleteSet(set) {
     let { id: newId } = set
     let setsNew = this.getSavedSets().filter(({ id: savedId }) => { return savedId !== newId })
+    localStorage.setItem(this.LOCAL_STORAGE_KEY_SETS, JSON.stringify(setsNew))
+    return setsNew
+  }
+
+  static updateSet(set) {
+    if(set.title.length === 0 && set.entries.length === 0) {
+      this.deleteSet(set)
+      return
+    }
+    if(!this.getSavedSets().some(containedSet => containedSet.id === set.id)) {
+      return this.addSet(set)
+    }
+    let setsNew = this.getSavedSets().map((savedSet) => {
+      if (savedSet.id === set.id) return set
+      return savedSet
+    })
     localStorage.setItem(this.LOCAL_STORAGE_KEY_SETS, JSON.stringify(setsNew))
     return setsNew
   }

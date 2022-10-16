@@ -34,10 +34,15 @@ function EditSet() {
 
   if (!parsed) {
     if (state) {
-      let { id, title, entries } = state
-      setCurrTitle(title)
-      setCurrEntries(entries)
-      setId(id)
+      let set = BingoStorage.getSet(state)
+      if(set) {
+        let {id, title, entries} = set
+        setId(id)
+        setCurrTitle(title)
+        setCurrEntries(entries)
+      } else {
+        setId(state.id)
+      }
     }
     setParsed(true)
   }
