@@ -65,7 +65,7 @@ function Pregame() {
     Set ID: {set.id}
     <br />
     {set.entries.length} entries:
-    {set.entries.map(({ id, title }) => { return <><br />{title}: {id}</> })}
+    {set.entries.map(({ id, title }) => { return <div key={id}><br />{title}: {id}</div> })}
   </div>
 
   let handleCheckboxClick = () => {
@@ -119,7 +119,7 @@ function Pregame() {
         </div>
         <div className='listIcons'>
           <SizeSelect defaultValue={maxWith} value={size} onChange={handleSizeSelect}>
-            {range(maxWith - 2, 3).map(x => <MenuItem value={x}>{x} x {x}</MenuItem>)}
+            {range(maxWith - 2, 3).map(x => <MenuItem key={x} value={x}>{x} x {x}</MenuItem>)}
           </SizeSelect>
         </div>
       </div>

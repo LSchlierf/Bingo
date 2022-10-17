@@ -9,7 +9,8 @@ body {
 }
 
 :root {
-    --topBarGray: #2a2a2a
+    --topBarGray: #2a2a2a;
+    --BingoCardRadius: 40px
 }
 
 .BingoGame {
@@ -59,6 +60,22 @@ body {
     border-color: black;
     margin: 0;
     overflow: hidden;
+}
+
+.card-row:first-child > .bingoField:first-child {
+    border-top-left-radius: var(--BingoCardRadius);
+}
+
+.card-row:first-child > .bingoField:last-child {
+    border-top-right-radius: var(--BingoCardRadius);
+}
+
+.card-row:last-child > .bingoField:first-child {
+    border-bottom-left-radius: var(--BingoCardRadius);
+}
+
+.card-row:last-child > .bingoField:last-child {
+    border-bottom-right-radius: var(--BingoCardRadius);
 }
 
 .listItem {

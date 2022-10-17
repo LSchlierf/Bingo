@@ -54,7 +54,7 @@ function EditSet() {
     Title: {currTitle.trim()}
     <br />
     {currEntries.length} Entries:
-    {currEntries.map(({id, title}) => { return <><br />{title}: {id}</> })}
+    {currEntries.map(({id, title}) => { return <div key={id}><br />{title}: {id}</div> })}
     <br />
     Dialog is {dialogVisible ? '' : 'not '}visible
     <br />
@@ -99,15 +99,15 @@ function EditSet() {
     BingoStorage.updateSet({id: id, title: currTitle, entries: []})
   }
 
-  function entryContainer(entry) {
+  function EntryContainer(props) {
     return (
-      <div className='listItem' key={entry.id}>
+      <div className='listItem'>
         <span>
-          {entry.title}
+          {props.entry.title}
         </span>
         <span className='listItemIcons'>
           <IconContext.Provider value={{ color: 'white', size: 25 }}>
-            <BsTrashFill onClick={() => deleteEntry(entry)}/>
+            <BsTrashFill onClick={() => deleteEntry(props.entry)}/>
           </IconContext.Provider>
         </span>
       </div>
@@ -118,7 +118,7 @@ function EditSet() {
     return (
       <>
         {entriesTitle()}
-        {currEntries.map((entry) => entryContainer(entry))}
+        {currEntries.map(entry => <EntryContainer key={entry.id} entry={entry}/>)}
       </>
     )
   }
@@ -180,7 +180,6 @@ function EditSet() {
           value={currTitle}
           onChange={handleTitleChange}
           error={currTitle.trim().length < 1}
-          hintText='Title is required'
           sx={{ input: { color: 'white' }, label: { color: 'white' }, paddingBottom: '5px' }}
           autoFocus={currTitle.length < 1}
           variant='outlined'

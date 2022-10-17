@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import { isIOS, isTablet } from "react-device-detect"
 import { IoStarSharp } from "react-icons/io5"
 import { IconContext } from "react-icons/lib"
-import { v4 as uuidv4 } from 'uuid'
 import BingoStorage from "./BingoStorage"
 
 function BingoCard(props) {
@@ -13,13 +12,8 @@ function BingoCard(props) {
   function BingoField(props) {
     return (
       <button className='bingoField' onClick={props.callback} style={{
-        borderTopLeftRadius: props.radii[0],
-        borderTopRightRadius: props.radii[1],
-        borderBottomLeftRadius: props.radii[2],
-        borderBottomRightRadius: props.radii[3],
         backgroundColor: props.markedOff ? '#1FD633' : '#666',
-        color: props.markedOff ? 'black' : 'white',
-        key: props.key
+        color: props.markedOff ? 'black' : 'white'
       }}>
         <div className='bingo-entry' style={{ fontSize: (isIOS && !isTablet) ? '9px' : '12px' }}>
           {props.text}
@@ -43,39 +37,20 @@ function BingoCard(props) {
     BingoStorage.updateGame({ ...props.game, markedOff: markedOffNew })
   }
 
-  function getRadii(index0, index1, maxVal) {
-    let radii = [0, 0, 0, 0]
-    if (index0 === 0) {
-      if (index1 === 0) {
-        radii[0] = maxVal
-      } else if (index1 === size - 1) {
-        radii[1] = maxVal
-      }
-    } else if (index0 === size - 1) {
-      if (index1 === 0) {
-        radii[2] = maxVal
-      } else if (index1 === size - 1) {
-        radii[3] = maxVal
-      }
-    }
-    return radii
-  }
-
   function renderLines() {
     return (
       <div className='card-grid'>
         {props.game.lines.map((line, lineIndex) =>
-          <div className='card-row'>
+          <div className='card-row' key={lineIndex.toString()}>
             {line.map((item, rowIndex) => {
               if (props.game.useFreeTile && lineIndex === rowIndex && lineIndex === middle) {
-                return <FreeBingoField />
+                return <FreeBingoField key='middle'/>
               }
               return <BingoField
                 text={item}
                 markedOff={markedOff[lineIndex][rowIndex]}
                 callback={() => handleFieldClick(lineIndex, rowIndex)}
-                radii={getRadii(lineIndex, rowIndex, 30)}
-                key={uuidv4()} />
+                key={rowIndex.toString()} />
             })}
           </div>
         )}

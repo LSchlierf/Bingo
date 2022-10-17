@@ -30,13 +30,13 @@ function App() {
       Alert is {alertVisible ? '' : 'not '}visible
       {games.length > 0 ? <div>
         {games.length} games paused:
-        {games.map(({ title, id }) => <div>{title}: {id}</div>)}
+        {games.map(({ title, id }) => <div key={id}>{title}: {id}</div>)}
       </div> : <div>
         No games saved
       </div>}
       {sets.length > 0 ? <div>
         {sets.length} sets saved:
-        {sets.map(({ id, title, entries }) => <div>{title}, ID: {id}, {entries.length} entries: {entries.map((entry) => { return <><br /> {entry.title}</> })}</div>)}
+        {sets.map(({ id, title, entries }) => <div key={id}>{title}, ID: {id}, {entries.length} entries: {entries.map((entry) => { return <div key={entry.id}><br /> {entry.title}</div> })}</div>)}
       </div> : <div />}
     </div>
 
@@ -72,38 +72,38 @@ function App() {
     }
   }
 
-  function gameContainer(game) {
+  function GameContainer(props) {
     return (
-      <div className='listItem' key={game.id}>
-        <span style={{ display: 'flex', maxWidth: '200px' }} onClick={() => resumeGame(game)}>
-          {game.title}
+      <div className='listItem'>
+        <span style={{ display: 'flex', maxWidth: '200px' }} onClick={() => resumeGame(props.game)}>
+          {props.game.title}
         </span>
-        <span onClick={() => resumeGame(game)} style={{ flex: 1 }} />
+        <span onClick={() => resumeGame(props.game)} style={{ flex: 1 }} />
         <span className='listItemIcons'>
           <IconContext.Provider value={{ color: 'white', size: 25 }}>
-            <BsTrashFill onClick={() => deleteGame(game)} />
+            <BsTrashFill onClick={() => deleteGame(props.game)} />
             <div style={{ width: '20px' }} />
-            <BsPlayFill onClick={() => resumeGame(game)} />
+            <BsPlayFill onClick={() => resumeGame(props.game)} />
           </IconContext.Provider>
         </span>
       </div>
     )
   }
 
-  function setContainer(set) {
+  function SetContainer(props) {
     return (
-      <div className='listItem' key={set.id}>
-        <span style={{ display: 'flex', maxWidth: '200px' }} onClick={() => playSet(set)}>
-          {set.title}
+      <div className='listItem'>
+        <span style={{ display: 'flex', maxWidth: '200px' }} onClick={() => playSet(props.set)}>
+          {props.set.title}
         </span>
-        <span onClick={() => playSet(set)} style={{ flex: 1 }} />
+        <span onClick={() => playSet(props.set)} style={{ flex: 1 }} />
         <span className='listItemIcons'>
           <IconContext.Provider value={{ color: 'white', size: 25 }}>
-            <BsTrashFill onClick={() => deleteSet(set)} />
+            <BsTrashFill onClick={() => deleteSet(props.set)} />
             <div style={{ width: '20px' }} />
-            <BsPencilFill onClick={() => editSet(set)} />
+            <BsPencilFill onClick={() => editSet(props.set)} />
             <div style={{ width: '20px' }} />
-            <BsPlayFill onClick={() => playSet(set)} />
+            <BsPlayFill onClick={() => playSet(props.set)} />
           </IconContext.Provider>
         </span>
       </div>
@@ -113,8 +113,8 @@ function App() {
   function gameList() {
     return (
       <>
-        {resumelistTitle()}
-        {games.map((game) => gameContainer(game))}
+        {<GameListTitle/>}
+        {games.map((game) => <GameContainer key={game.id} game={game}/>)}
       </>
     )
   }
@@ -122,13 +122,13 @@ function App() {
   function setList() {
     return (
       <>
-        {setListTitle()}
-        {sets.map((set) => setContainer(set))}
+        {<SetListTitle/>}
+        {sets.map((set) => <SetContainer key={set.id} set={set}/>)}
       </>
     )
   }
 
-  function resumelistTitle() {
+  function GameListTitle() {
     return games.length > 0 ?
       <div className='listTitle'>
         <span className='listCount'>
@@ -143,7 +143,7 @@ function App() {
       </div>
   }
 
-  function setListTitle() {
+  function SetListTitle() {
     return sets.length > 0 ?
       <div className='listTitle'>
         <span className='listCount'>
