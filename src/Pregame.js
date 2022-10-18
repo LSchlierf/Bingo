@@ -44,12 +44,15 @@ function Pregame() {
   let leftButton = <button className='backButton' onClick={() => navigate('/')}><IconContext.Provider value={{ color: 'white', size: 30 }}><BsArrowLeft /></IconContext.Provider></button>
 
   let maxWith = Math.floor(Math.sqrt(set.entries.length + 1))
+  if(maxWith % 2 === 0) {
+    maxWith -= 1
+  }
   let maxWithout = Math.floor(Math.sqrt(set.entries.length))
   let canUseWithout = maxWithout > 2
   let sizesDiff = maxWith !== maxWithout
 
-  const [freeField, setFreeField] = useState(true)
-  const [size, setSize] = useState(maxWith)
+  const [freeField, setFreeField] = useState(maxWith >= maxWithout)
+  const [size, setSize] = useState(Math.max(maxWith, maxWithout))
 
 
   // eslint-disable-next-line
@@ -119,7 +122,7 @@ function Pregame() {
         </div>
         <div className='listIcons'>
           <SizeSelect defaultValue={maxWith} value={size} onChange={handleSizeSelect}>
-            {range(maxWith - 2, 3).map(x => <MenuItem key={x} value={x}>{x} x {x}</MenuItem>)}
+            {range(Math.max(maxWith, maxWithout) - 2, 3).map(x => <MenuItem key={x} value={x}>{x} x {x}</MenuItem>)}
           </SizeSelect>
         </div>
       </div>
