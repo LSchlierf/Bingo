@@ -13,7 +13,7 @@ To pause a game, return to the main page using the left arrow button. Here, you 
 - [x] Base functionality
 - [x] Free space support
 - [x] Card size selection
-- [ ] Editing set entries
+- [x] Editing set entries
 - [ ] Prompt before deletion
 
 ## Contact

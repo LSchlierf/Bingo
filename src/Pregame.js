@@ -77,7 +77,7 @@ function Pregame() {
       let sizeNew = maxWith > size ? size + 1 : size - 1
       setSize(sizeNew)
     }
-    if (sizesDiff && !freeFieldNew && size === maxWith) {
+    if (maxWith > maxWithout && !freeFieldNew && size === maxWith) {
       setSize(maxWithout)
     }
     setFreeField(freeFieldNew)
@@ -113,33 +113,35 @@ function Pregame() {
   return (
     <div className='gradient'>
       <NavBar leftButton={leftButton} title='Configure game' />
-      <div className='listTitle' >
-        Available entries: {set.entries.length}
-      </div>
-      <div className='listItem' >
-        <div style={{ fontSize: '30px' }}>
-          Choose size
+      <div className='optionsList'>
+        <div className='listTitle' >
+          Available entries: {set.entries.length}
         </div>
-        <div className='listIcons'>
-          <SizeSelect defaultValue={maxWith} value={size} onChange={handleSizeSelect}>
-            {range(Math.max(maxWith, maxWithout) - 2, 3).map(x => <MenuItem key={x} value={x}>{x} x {x}</MenuItem>)}
-          </SizeSelect>
+        <div className='listItem' >
+          <div style={{ fontSize: '30px' }}>
+            Choose size
+          </div>
+          <div className='listIcons'>
+            <SizeSelect defaultValue={maxWith} value={size} onChange={handleSizeSelect}>
+              {range(Math.max(maxWith, maxWithout) - 2, 3).map(x => <MenuItem key={x} value={x}>{x} x {x}</MenuItem>)}
+            </SizeSelect>
+          </div>
         </div>
-      </div>
-      <div className='listItem' >
-        <div style={{ fontSize: '30px' }}>
-          Use free field
+        <div className='listItem' >
+          <div style={{ fontSize: '30px' }}>
+            Use free field
+          </div>
+          <div className='listIcons'>
+            <FreeFieldCheckBox
+              disabled={!canUseWithout}
+              checked={freeField}
+              onChange={handleCheckboxClick} />
+          </div>
         </div>
-        <div className='listIcons'>
-          <FreeFieldCheckBox
-            disabled={!canUseWithout}
-            checked={freeField}
-            onChange={handleCheckboxClick} />
-        </div>
-      </div>
-      <div className='startButton'>
-        <div className='textButton' onClick={startGame}>
-          Let's go!
+        <div className='startButton'>
+          <div className='textButton' onClick={startGame}>
+            Let's go!
+          </div>
         </div>
       </div>
       {/* {debugInfo} */}

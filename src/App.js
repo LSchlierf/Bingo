@@ -181,7 +181,7 @@ function App() {
     <div className='gradient'>
       <NavBar title='Buzzword Bingo' rightButton={rightButton} leftButton={leftButton} />
       {isTablet || isBrowser ?
-        <div className='browserContainer'>
+        <div>
           <div className='gameList'>
             {gameList()}
           </div>

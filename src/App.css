@@ -87,6 +87,10 @@ body {
     display: flex;
 }
 
+.listItem:last-child {
+    border-bottom: none;
+}
+
 .listItemIcons {
     display: flex;
 }
@@ -117,23 +121,24 @@ body {
     color: white
 }
 
-.browserConatiner {
-    height: max-content;
-    display: table;
-}
-
 .gameList {
     float: left;
-    min-width: calc(50% - 1px);
+    min-width: calc(50% - 21px);
     display: table-cell;
     border-right: 1px solid gray;
+    padding: 10px;
 }
 
 .setList {
     float: right;
-    min-width: calc(50% - 1px);
+    min-width: calc(50% - 21px);
     display: table-cell;
     border-left: 1px solid gray;
+    padding: 10px
+}
+
+.optionsList {
+    padding: 10px
 }
 
 .TitleInput {
@@ -144,6 +149,7 @@ body {
     color: white;
     padding-bottom: 10px;
     padding-right: 10px;
+    text-decoration: underline;
 }
 
 .textButton {

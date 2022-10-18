@@ -1,7 +1,7 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import React, { useState } from "react"
-import { BsArrowLeft, BsPlus, BsTrashFill } from "react-icons/bs"
+import { BsArrowLeft, BsPencilFill, BsPlus, BsTrashFill } from "react-icons/bs"
 import { IconContext } from "react-icons/lib"
 import { useLocation, useNavigate } from "react-router"
 import NavBar from "./NavBar"
@@ -28,6 +28,7 @@ function EditSet() {
   const [parsed, setParsed] = useState(false)
   const [dialogVisible, setDialogVisible] = useState(false)
   const [currEntry, setCurrEntry] = useState('')
+  const [currEntryId, setCurrEntryId] = useState(0)
 
   let { state } = useLocation()
   let navigate = useNavigate()
@@ -54,12 +55,13 @@ function EditSet() {
     Title: {currTitle.trim()}
     <br />
     {currEntries.length} Entries:
-    {currEntries.map(({id, title}) => { return <div key={id}><br />{title}: {id}</div> })}
-    <br />
+    {currEntries.map(({id, title}) => { return <div key={id}>{title}: {id}</div> })}
     Dialog is {dialogVisible ? '' : 'not '}visible
     <br />
     Current entry being edited: {currEntry}
     <br />
+    Current id being edited: {currEntryId}
+    <br/>
     <button onClick={() => {setCurrEntries([])}}>Clear entries</button>
   </div>
 
@@ -79,19 +81,38 @@ function EditSet() {
   let handleDialogClose = () => {
     setDialogVisible(false)
     setCurrEntry('')
+    setCurrEntryId(0)
   }
 
   function addEntry() {
-    let entriesNew = [...currEntries, ...(currEntry.split('\n').map((newTitle) => {return {id: uuidv4(), title: newTitle.trim()}}).filter(({title: newTitle}) => {return !currEntries.some((containedEntry) => {return containedEntry.title === newTitle}) && newTitle.length > 0}))]
-    setCurrEntries(entriesNew)
+    if(currEntryId === 0) {
+      let entriesNew = [...currEntries, ...(currEntry.split('\n').map((newTitle) => {return {id: uuidv4(), title: newTitle.trim()}}).filter(({title: newTitle}) => {return !currEntries.some((containedEntry) => {return containedEntry.title === newTitle}) && newTitle.length > 0}))]
+      setCurrEntries(entriesNew)
+      BingoStorage.updateSet({id: id, title: currTitle, entries: entriesNew})
+    } else {
+      if(currEntry.trim().includes('\n')) {
+        let entriesNew = [...currEntries.filter(entry => entry.id !== currEntryId), ...(currEntry.split('\n').map((newTitle) => {return {id: uuidv4(), title: newTitle.trim()}}).filter(({title: newTitle}) => {return !currEntries.some((containedEntry) => {return containedEntry.title === newTitle}) && newTitle.length > 0}))]
+        setCurrEntries(entriesNew)
+        BingoStorage.updateSet({id: id, title: currTitle, entries: entriesNew})
+      } else {
+        let entriesNew = currEntries.map(entry => entry.id === currEntryId ? {...entry, title: currEntry.trim()} : entry)
+        setCurrEntries(entriesNew)
+        BingoStorage.updateSet({id: id, title: currTitle, entries: entriesNew})
+      }
+    }
     handleDialogClose()
-    BingoStorage.updateSet({id: id, title: currTitle, entries: entriesNew})
   }
 
   function deleteEntry(entry) {
     let entriesNew = [...currEntries].filter((savedEntry) => {return entry.id !== savedEntry.id})
     setCurrEntries(entriesNew)
     BingoStorage.updateSet({id: id, title: currTitle, entries: entriesNew})
+  }
+
+  function editEntry(entry) {
+    setCurrEntry(entry.title)
+    setCurrEntryId(entry.id)
+    setDialogVisible(true)
   }
 
   function clearEntries() {
@@ -107,6 +128,8 @@ function EditSet() {
         </span>
         <span className='listItemIcons'>
           <IconContext.Provider value={{ color: 'white', size: 25 }}>
+            <BsPencilFill onClick={() => editEntry(props.entry)} />
+            <div style={{ width: '20px' }} />
             <BsTrashFill onClick={() => deleteEntry(props.entry)}/>
           </IconContext.Provider>
         </span>
@@ -148,7 +171,7 @@ function EditSet() {
   }
 
   let entryDialog = <Dialog open={dialogVisible} onClose={handleDialogClose}>
-    <DialogTitle sx={{backgroundColor: '#444', color: 'white'}}>Add new entry</DialogTitle>
+    <DialogTitle sx={{backgroundColor: '#444', color: 'white'}}>{currEntryId === 0 ? 'Add new entry' : 'Edit entry'}</DialogTitle>
     <DialogContent sx={{backgroundColor: '#444'}}>
       <TitleTextField
         sx={{input: {color: 'white'}, label: {color: 'white'}}}
@@ -165,7 +188,7 @@ function EditSet() {
     </DialogContent>
     <DialogActions sx={{backgroundColor: '#444'}}>
       <div onClick={handleDialogClose} className='alertAction'>Cancel</div>
-      <div onClick={addEntry} className='alertAction'>Add</div>
+      <div onClick={addEntry} className='alertAction'>{currEntryId === 0 ? 'Add' : 'Save'}</div>
     </DialogActions>
   </Dialog>
 
