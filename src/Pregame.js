@@ -23,9 +23,6 @@ const SizeSelect = styled(Select)({
   '.MuiOutlinedInput-notchedOutline': {
     borderColor: 'white',
   },
-  // '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-  //     borderColor: 'white',
-  // },
   '&:hover .MuiOutlinedInput-notchedOutline': {
     borderColor: 'white',
   },
@@ -138,12 +135,12 @@ function Pregame() {
               onChange={handleCheckboxClick} />
           </div>
         </div>
+      </div>
         <div className='startButton'>
           <div className='textButton' onClick={startGame}>
             Let's go!
           </div>
         </div>
-      </div>
       {/* {debugInfo} */}
     </div>
   )

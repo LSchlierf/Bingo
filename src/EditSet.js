@@ -207,6 +207,8 @@ function EditSet() {
           autoFocus={currTitle.length < 1}
           variant='outlined'
         />
+      </div>
+      <div className='paddedList'>
         {entryList()}
         {entryDialog}
       </div>

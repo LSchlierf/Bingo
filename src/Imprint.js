@@ -7,10 +7,10 @@ import NavBar from "./NavBar"
 function Imprint() {
   let navigate = useNavigate()
 
-  let leftButton = <IconContext.Provider value={{ color: 'white', size: 40 }}><BsHouse onClick={() => navigate('/')}></BsHouse></IconContext.Provider>
+  let leftButton = <IconContext.Provider value={{ color: 'white', size: 40 }}><BsHouse onClick={() => navigate('/')}/></IconContext.Provider>
 
   return (
-    <div>
+    <div className='gradient'>
       <NavBar title='Imprint' leftButton={leftButton} />
       <div className='imprint'>
         Responsible for this website:

@@ -15,7 +15,7 @@ To pause a game, return to the main page using the left arrow button. Here, you 
 - [x] Card size selection
 - [x] Editing set entries
 - [ ] Prompt before deletion
-- [ ] Theme selection & redesign
+- [ ] Theme selection
 
 ## Contact
 

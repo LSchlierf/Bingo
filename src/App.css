@@ -1,7 +1,7 @@
 html {
     font-family: 'Roboto';
     background-color: #444;
-    min-height: 100%
+    min-height: 100%;
 }
 
 body {
@@ -10,7 +10,10 @@ body {
 
 :root {
     --topBarGray: #2a2a2a;
-    --BingoCardRadius: 40px
+    --BingoCardRadius: 40px;
+    --borderGray: #5e5e5e;
+    --cardBackground: #02020260;
+    --primaryColor: white;
 }
 
 .BingoGame {
@@ -78,71 +81,79 @@ body {
     border-bottom-right-radius: var(--BingoCardRadius);
 }
 
-.listItem {
-    color: white;
-    font-size: 20px;
-    padding: 15px;
-    border-bottom: 2px solid gray;
-    justify-content: space-between;
+.listTitle, .listItem {
+    color: var(--primaryColor);
     display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 2px solid;
+    background-color: var(--cardBackground);
 }
 
-.listItem:last-child {
-    border-bottom: none;
+.listTitle {
+    border-color: var(--primaryColor);
+    min-height: 39px;
+    font-size: 30px;
+}
+
+.listItem {
+    border-color: var(--borderGray);
+    font-size: 20px;
 }
 
 .listItemIcons {
     display: flex;
 }
 
-.listTitle {
-    display: flex;
-    justify-content: space-between;
-    font-size: 30px;
-    color: white;
-    padding: 15px;
-    border-bottom: 2px solid white;
-    min-height: 39px;
-}
-
 .imprint {
-    color: white;
+    color: var(--primaryColor);
     font-size: 18px;
 }
 
 .gradient {
-    background: linear-gradient(180deg, rgb(9, 9, 121) 0%, rgb(1, 4, 19) 100%);
+    background: linear-gradient(180deg, rgb(0, 0, 128) 0%, rgb(0, 0, 0) 100%);
     min-height: 100%;
     width: 100%;
     position: absolute;
 }
 
 .debugInfo {
-    color: white
+    color: var(--primaryColor);
+}
+
+.paddedList, .gameList, .setList {
+    margin: 15px;
+    border: 2px solid var(--borderGray);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.gameList, .setList {
+    min-width: calc(50% - 27px);
+    display: table-cell;
 }
 
 .gameList {
     float: left;
-    min-width: calc(50% - 21px);
-    display: table-cell;
-    border-right: 1px solid gray;
-    padding: 10px;
+    margin-right: 0px;
 }
 
 .setList {
     float: right;
-    min-width: calc(50% - 21px);
-    display: table-cell;
-    border-left: 1px solid gray;
-    padding: 10px
+    margin-left: 0px;
 }
 
-.paddedList {
-    padding: 10px
+.gameList > :last-child, .setList > :last-child, .paddedList > :last-child {
+    border-bottom: 0px;
 }
 
 .TitleInput {
-    padding: 10px;
+    padding: 15px;
+    padding-bottom: 0px;
+}
+
+.TitleInput > * > .MuiInputBase-root, .startButton > .textButton {
+    background-color: var(--cardBackground);
 }
 
 .alertAction {
@@ -155,9 +166,7 @@ body {
 .textButton {
     padding-left: 5px;
     padding-right: 5px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: white;
+    border: 1px solid var(--primaryColor);
     border-radius: 7px;
 }
 
@@ -166,9 +175,13 @@ body {
 }
 
 .startButton {
-    color: white;
+    color: var(--primaryColor);
     font-size: 30px;
     padding-top: 20px;
     display: flex;
     justify-content: center;
+}
+
+a {
+    color: var(--primaryColor);
 }

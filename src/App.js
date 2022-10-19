@@ -3,7 +3,8 @@ import NavBar from './NavBar.js'
 import { useNavigate } from "react-router-dom";
 import { isBrowser, isIOS, isTablet, } from 'react-device-detect'
 import { IconContext } from 'react-icons/lib';
-import { BsInfoCircle, BsPencilFill, BsPlayFill, BsPlus, BsTrashFill } from 'react-icons/bs';
+import { BsPencilFill, BsPlayFill, BsPlus, BsTrashFill } from 'react-icons/bs';
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid'
 import BingoStorage from './BingoStorage'
@@ -36,7 +37,7 @@ function App() {
       </div>}
       {sets.length > 0 ? <div>
         {sets.length} sets saved:
-        {sets.map(({ id, title, entries }) => <div key={id}>{title}, ID: {id}, {entries.length} entries: {entries.map((entry) => { return <div key={entry.id}><br /> {entry.title}</div> })}</div>)}
+        {sets.map(({ id, title, entries }) => <div key={id}>{title}, ID: {id}, {entries.length} entries: {entries.map((entry) => { return <div key={entry.id}>{entry.title}</div> })}</div>)}
       </div> : <div />}
     </div>
 
@@ -147,7 +148,7 @@ function App() {
     return sets.length > 0 ?
       <div className='listTitle'>
         <span className='listCount'>
-          {sets.length} {sets.length > 1 ? 'sets' : 'set'} saved:
+          {sets.length} {sets.length > 1 ? 'sets' : 'set'}{isIOS && !isTablet ? ':' : ' saved:'}
         </span>
         <span onClick={() => clearSets()} className='textButton'>
           Delete all
@@ -174,8 +175,8 @@ function App() {
     </DialogActions>
   </Dialog>
 
-  let rightButton = <IconContext.Provider value={{ color: 'white', size: 40 }}><BsPlus onClick={() => navigate('edit', {state: {id: uuidv4()}})}></BsPlus></IconContext.Provider>
-  let leftButton = <IconContext.Provider value={{ color: 'white', size: 26 }}><BsInfoCircle style={{ padding: '7px' }} onClick={() => navigate('imprint')}></BsInfoCircle></IconContext.Provider>
+  let rightButton = <IconContext.Provider value={{ color: 'white', size: 40 }}><BsPlus onClick={() => navigate('edit', {state: {id: uuidv4()}})}/></IconContext.Provider>
+  let leftButton = <IconContext.Provider value={{ color: 'white', size: 28 }}><AiOutlineInfoCircle style={{ padding: '7px' }} onClick={() => navigate('imprint')}/></IconContext.Provider>
 
   return (
     <div className='gradient'>
@@ -190,11 +191,15 @@ function App() {
           </div>
           {/* {debugInfo} */}
         </div> :
-        <div className='paddedList'>
-          {gameList()}
-          {setList()}
+        <>
+          <div className='paddedList'>
+            {gameList()}
+          </div>
+          <div className='paddedList'>
+            {setList()}
+          </div>
           {/* {debugInfo} */}
-        </div>}
+        </>}
       {alert}
     </div>
   )
