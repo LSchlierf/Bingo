@@ -190,7 +190,7 @@ function App() {
           </div>
           {/* {debugInfo} */}
         </div> :
-        <div>
+        <div className='paddedList'>
           {gameList()}
           {setList()}
           {/* {debugInfo} */}

@@ -113,7 +113,7 @@ function Pregame() {
   return (
     <div className='gradient'>
       <NavBar leftButton={leftButton} title='Configure game' />
-      <div className='optionsList'>
+      <div className='paddedList'>
         <div className='listTitle' >
           Available entries: {set.entries.length}
         </div>
