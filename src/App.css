@@ -59,8 +59,7 @@ body {
 .bingoField {
     flex: 1;
     aspect-ratio: 1;
-    border-width: 1.5px;
-    border-color: black;
+    border: 1.5px solid black;
     margin: 0;
     overflow: hidden;
 }
